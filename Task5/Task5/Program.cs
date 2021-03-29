@@ -6,7 +6,9 @@ namespace Task5
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var fw = new FileWorker();
+            fw.ConcatText();
+            fw.ListofMethods().GetAwaiter().GetResult();
         }
     }
 }

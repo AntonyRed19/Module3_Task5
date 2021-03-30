@@ -9,13 +9,31 @@ namespace Task5
 {
     public class FileWorker
     {
-        private readonly string _path = "../1.txt";
+        private readonly string _path = "1.txt";
         private readonly string _text = "Hello";
         private readonly string _text1 = "World";
-        public string ConcatText()
+
+        public void CreateFile()
         {
-            var newtext = _text + _text1;
-            return newtext;
+            File.WriteAllText(_path, _text);
+        }
+
+        public async Task<string> Hello()
+        {
+            var a = File.ReadAllTextAsync(_path);
+            return await a;
+        }
+
+        public async Task<string> World()
+        {
+            return await Task.FromResult(_text1);
+        }
+
+        public async Task ListofAsync()
+        {
+             await Hello();
+             await World();
+             await Task.Run(() => _text + _text1);
         }
 
         public async Task<string> ListofMethods()
@@ -23,17 +41,14 @@ namespace Task5
             var list = new List<Task>();
             list.Add(Task.Run(async () =>
             {
-                using (StreamReader sr = new StreamReader(_path))
-                {
-                    return await sr.ReadToEndAsync();
-                }
+                return await File.ReadAllTextAsync(_path);
             }));
             list.Add(Task.Run(async () =>
             {
-                return await Task.Run(() => _text1);
+                return await Task.FromResult(_text1);
             }));
-            Task.WhenAll(list).GetAwaiter().GetResult();
-            return await Task.Run(() => ConcatText());
+            await Task.WhenAll(list);
+            return await Task.Run(() => _text + _text1);
         }
     }
 }

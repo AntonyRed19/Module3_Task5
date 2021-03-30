@@ -7,8 +7,9 @@ namespace Task5
         public static void Main(string[] args)
         {
             var fw = new FileWorker();
-            fw.ConcatText();
-            fw.ListofMethods().GetAwaiter().GetResult();
+            fw.CreateFile();
+            fw.ListofMethods()
+                .GetAwaiter().GetResult();
         }
     }
 }

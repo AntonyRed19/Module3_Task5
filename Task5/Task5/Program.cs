@@ -8,7 +8,7 @@ namespace Task5
         {
             var fw = new FileWorker();
             fw.CreateFile();
-            fw.ListofMethods()
+            fw.ListofMethodsAsync()
                 .GetAwaiter().GetResult();
         }
     }
